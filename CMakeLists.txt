@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.18)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
+include(CleanFlags)
+include(CompilerWarnings)
+include(DisableExceptions)
+include(DisableRTTI)
+
 enable_language(CXX)
 
 project(cpp_compile_time_interface LANGUAGES CXX VERSION 0.0.1)
@@ -63,122 +69,7 @@ add_executable(${PROJECT_NAME}
     src/producer_b.cpp
 )
 
-# Disable exceptions
-if(MSVC)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE _HAS_EXCEPTIONS=0)
-    target_compile_options(${PROJECT_NAME} PRIVATE /EHa- /EHs-)
-else()
-    target_compile_options(${PROJECT_NAME} PRIVATE -fno-exceptions)
-endif()
-
-# Disable RTTI
-if(MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /GR-)
-else()
-    target_compile_options(${PROJECT_NAME} PRIVATE -fno-rtti)
-endif()
-
-# Sanitize MSVC
-if(MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
-
-    target_compile_definitions(${PROJECT_NAME} PRIVATE NOGDI)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE VC_EXTRALEAN)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE WIN32_LEAN_AND_MEAN)
-
-    if(NOT "${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
-        target_compile_options(${PROJECT_NAME} PRIVATE /experimental:external /external:W0 /permissive-)
-    endif()
-endif()
-
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    # gcc 5
-    target_compile_options(${PROJECT_NAME} PRIVATE
-        -Wall
-        -Wcast-qual
-        -Wconversion
-        -Wctor-dtor-privacy
-        -Wdeprecated-declarations
-        -Wdisabled-optimization
-        -Wdouble-promotion
-        -Wextra
-        -Wformat=2
-        -Wlogical-op
-        -Wmissing-include-dirs
-        -Wnoexcept
-        -Wnon-virtual-dtor
-        -Wold-style-cast
-        -Woverloaded-virtual
-        -Wpedantic
-        -Wpointer-arith
-        -Wredundant-decls
-        -Wshadow
-        -Wsign-conversion
-        -Wsized-deallocation
-        -Wtrampolines
-        -Wundef
-        -Wunused
-        -Wunused-parameter
-        -Wuseless-cast
-        -Wvector-operation-performance
-        -Wwrite-strings
-        -pedantic-errors
-    )
-
-    # gcc 6
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 6.1)
-        target_compile_options(${PROJECT_NAME} PRIVATE
-            -Wduplicated-cond
-            -Wmisleading-indentation
-            -Wnull-dereference
-            -Wshift-overflow=2
-        )
-    endif()
-
-    # gcc 7
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 7.1)
-        target_compile_options(${PROJECT_NAME} PRIVATE
-            -Wduplicated-branches
-        )
-    endif()
-
-    # gcc 9
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 9.1)
-        target_compile_options(${PROJECT_NAME} PRIVATE
-            -Wzero-as-null-pointer-constant
-        )
-    endif()
-
-elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
-    target_compile_options(${PROJECT_NAME} PRIVATE
-        -Weverything
-        -Wno-c++98-compat
-        -Wno-c++98-compat-pedantic
-        -Wno-padded
-        -Wno-return-std-move-in-c++11
-    )
-else()
-    target_compile_options(${PROJECT_NAME} PRIVATE
-        /W4
-        /w14242
-        /w14254
-        /w14263
-        /w14265
-        /w14287
-        /we4289
-        /w14296
-        /w14311
-        /w14545
-        /w14546
-        /w14547
-        /w14549
-        /w14555
-        /w14619
-        /w14640
-        /w14826
-        /w14905
-        /w14906
-        /w14928
-    )
-endif()
+target_disable_exceptions(${PROJECT_NAME})
+target_disable_rtti(${PROJECT_NAME})
+target_clean_flags(${PROJECT_NAME})
+target_add_compiler_warnings(${PROJECT_NAME})
