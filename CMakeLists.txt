@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.19)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extern/cmake-common")
 include(CleanFlags)
 include(CompilerWarnings)
 include(DisableExceptions)
@@ -10,8 +10,8 @@ enable_language(CXX)
 
 project(cpp_compile_time_interface LANGUAGES CXX VERSION 0.0.1)
 
-if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Minimum OS X deployment version" FORCE)
+if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum OS X deployment version" FORCE)
 endif()
 
 if(POLICY CMP0074)
@@ -47,7 +47,7 @@ if("${CMAKE_GENERATOR}" STREQUAL "Ninja" AND
 endif()
 
 if(MSVC)
-    foreach (flag_var CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+    foreach(flag_var CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
         string(REPLACE "/W3" "" ${flag_var} "${${flag_var}}")
         string(REPLACE "/EHc" "" ${flag_var} "${${flag_var}}")
         string(REPLACE "/EHsc" "" ${flag_var} "${${flag_var}}")

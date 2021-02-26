@@ -1,0 +1,3 @@
+[submodule "extern/cmake-common"]
+	path = extern/cmake-common
+	url = https://github.com/Longhanks/cmake-common.git
