@@ -28,6 +28,8 @@ jobs:
             }
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
       - uses: lukka/get-cmake@latest
       - uses: seanmiddleditch/gha-setup-ninja@master
       - name: Run CMake (*nix)
