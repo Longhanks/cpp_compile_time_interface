@@ -14,5 +14,6 @@ Checks: >
   -hicpp-avoid-c-arrays,
   -hicpp-no-array-decay,
   -llvmlibc-callee-namespace,
+  -llvm-header-guard,
   -llvm-namespace-comment,
   -modernize-avoid-c-arrays,
