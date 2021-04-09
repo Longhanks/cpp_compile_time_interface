@@ -2,9 +2,14 @@
 BasedOnStyle: LLVM
 IndentWidth: 2
 ColumnLimit: 120
-AccessModifierOffset: -2
+AccessModifierOffset: -1
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
 AllowShortFunctionsOnASingleLine: Empty
+AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: false
 BinPackParameters: false
+IndentCaseLabels: true
+SpaceAfterTemplateKeyword: false
+SpacesInContainerLiterals: false
 ...
 

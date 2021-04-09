@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.20)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extern/cmake-common")
 include(CleanFlags)
@@ -12,7 +12,7 @@ enable_language(CXX)
 project(cpp_compile_time_interface LANGUAGES CXX VERSION 0.0.1)
 
 if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum OS X deployment version" FORCE)
+  set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum OS X deployment version" FORCE)
 endif()
 
 if(POLICY CMP0074)

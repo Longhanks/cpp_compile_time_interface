@@ -3,5 +3,5 @@
 #include "producer.h"
 
 template <> char producer<producer_a>::produce() const noexcept {
-    return 'A';
+  return 'A';
 }
