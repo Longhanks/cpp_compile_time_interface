@@ -10,6 +10,7 @@ Checks: >
   -cppcoreguidelines-pro-type-static-cast-downcast,
   -modernize-use-trailing-return-type,
   -google-readability-namespace-comments,
+  -google-runtime-int,
   -google-runtime-references,
   -hicpp-avoid-c-arrays,
   -hicpp-no-array-decay,
