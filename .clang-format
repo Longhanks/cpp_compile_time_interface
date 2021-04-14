@@ -11,5 +11,6 @@ BinPackParameters: false
 IndentCaseLabels: true
 SpaceAfterTemplateKeyword: false
 SpacesInContainerLiterals: false
+SortIncludes: CaseSensitive
 ...
 
