@@ -32,8 +32,9 @@
 *.app
 
 # Misc
-.vscode/
+**/.vs
+*build*/
 .idea/
-build*/
+.vscode/
 CMakeLists.txt.user
 CMakeLists.txt.user.*
